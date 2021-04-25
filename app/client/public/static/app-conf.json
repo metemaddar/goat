@@ -1445,7 +1445,7 @@
           },
           {
             "categoryValue": "education",
-            "poisFiltered": ["primary_school", "secondary_school"]
+            "poisFiltered": ["primary_school", "secondary_school", "grundschule", "hauptschule", "realschule", "gymnasium"]
           }
         ]
       }
