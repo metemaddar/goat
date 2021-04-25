@@ -134,7 +134,12 @@
     },
     "edit": {
       "title": "Szenarien entwickeln",
-      "selectLayer": "Layer zum Bearbeiten",
+      "createScenario": "Szenario erstellen",
+      "editScenarioName": "Szenarioname bearbeiten",
+      "scenario": "Szenario",
+      "scenarioImportExport": "Szenario Import/Export",
+      "selectLayer": "Layer auswählen",
+      "layerToEdit": "Layer zum Bearbeiten",
       "selectFeatures": "Objekte auswählen",
       "drawCircle": "Kreis zeichnen, um Objekte auszuwählen",
       "selectOnMap": "Objekte auf Karte auswählen",
@@ -343,7 +348,8 @@
       "noScenarioFeatureChangeAvailable": "Ändern Sie zuerst das Netzwerk oder die Landnutzung.",
       "cantPrintBaseLayer": "Diese Basiskarte kann nicht gedruckt werden.",
       "cantExportScenario": "Ein Fehler ist aufgetreten. Szenario kann nicht exportiert werden!",
-      "zoomInToShowFeatures": "Zoome um Objekte der folgenden Layer zu sehen"
+      "zoomInToShowFeatures": "Zoome um Objekte der folgenden Layer zu sehen",
+      "heatmapIsBusy": "Die Neuberechung der Heatmap dauert etwas. Bitte bleiben Sie geduldig!"
     },
     "layerGroup": {
       "poisLayers": "POIs",
@@ -425,7 +431,8 @@
       "pt_trips_rate": "Mit dem ÖV zurückgelegte Wege pro Person",
       "strata": "sozio-ökonomische Schichten",
       "study_area_crop": "Untersuchungsgebiet",
-      "study_area": "Ortsteile"
+      "study_area": "Ortsteile",
+      "ways_Project_Sidewalk": "Project Sidewalk Score"
     },
     "tooltips": {
       "clickForCalculation": "Für Berechnung klicken",
@@ -529,7 +536,7 @@
       "shortDesc": "Vervollständigung der fehlenden {missingVar}",
       "longDesc": "Check out {layerNameVar} for missing {missingVar}.",
       "layers": {
-        "osm-mapping-pois": {
+        "mapping_pois_opening_hours": {
           "missingKeyWord": "Öffnungszeiten",
           "layerName": "POIs",
           "stepsDesc": {
@@ -616,6 +623,11 @@
     "kindergarten": "Kindergarten",
     "primary_school": "Grundschule",
     "secondary_school": "Weiterführende Schule",
+    "grundschule": "Grundschule",
+    "gymnasium": "Gymnasium",
+    "realschule": "Realschule",
+    "hauptschule": "Hauptschule",
+    "werkrealschule": "Werkrealschule",
     "school": "Schule",
     "library": "Bibliothek",
     "bar": "Bar",

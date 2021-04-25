@@ -82,14 +82,29 @@
     <v-snackbar
       :color="activeColor.primary"
       top
-      :timeout="layerSnackbar.timeout"
-      v-model="layerSnackbar.state"
+      :timeout="visibilityLayerSnackbar.timeout"
+      v-model="visibilityLayerSnackbar.state"
     >
       <v-icon color="white" class="mr-3">
         info
       </v-icon>
-      <span v-html="layerSnackbar.message"></span>
-      <v-btn text @click="layerSnackbar.state = false">
+      <span v-html="visibilityLayerSnackbar.message"></span>
+      <v-btn text @click="visibilityLayerSnackbar.state = false">
+        <v-icon>close</v-icon>
+      </v-btn>
+    </v-snackbar>
+    <!-- Info Snackbar for layers that have a long computation time (ex. heatmaps) -->
+    <v-snackbar
+      :color="activeColor.primary"
+      top
+      :timeout="80000"
+      v-model="busyLayerSnackbar.state"
+    >
+      <v-icon color="white" class="mr-3">
+        info
+      </v-icon>
+      <span v-html="busyLayerSnackbar.message"></span>
+      <v-btn text @click="busyLayerSnackbar.state = false">
         <v-icon>close</v-icon>
       </v-btn>
     </v-snackbar>
@@ -177,10 +192,15 @@ export default {
       },
       getInfoResult: [],
       limitedVisibilityLayers: [],
-      layerSnackbar: {
+      visibilityLayerSnackbar: {
         state: false,
         message: "",
         timeout: 8000
+      },
+      busyLayerSnackbar: {
+        state: false,
+        message: "",
+        timeout: 100000
       }
     };
   },
@@ -225,7 +245,8 @@ export default {
       layers: [],
       interactions: defaultInteractions({
         altShiftDragRotate: me.rotateableMap,
-        doubleClickZoom: false
+        doubleClickZoom: false,
+        mouseWheelZoom: true
       }).extend([this.dblClickZoomInteraction]),
       controls: defaultControls({
         attribution: false,
@@ -247,7 +268,6 @@ export default {
 
     // Setup context menu (right-click)
     me.setupContentMenu();
-
     // Event bus setup for managing interactions
     EventBus.$on("ol-interaction-activated", startedInteraction => {
       me.activeInteractions.push(startedInteraction);
@@ -273,7 +293,14 @@ export default {
     createLayers() {
       let layers = [];
       const me = this;
-      const layersConfigGrouped = groupBy(this.$appConfig.map.layers, "group");
+
+      const layersConfigGrouped = groupBy(
+        [
+          ...this.$appConfig.map.layers,
+          ...this.$appConfig.map.osmMappingLayers
+        ],
+        "group"
+      );
       for (var group in layersConfigGrouped) {
         if (!layersConfigGrouped.hasOwnProperty(group)) {
           continue;
@@ -517,9 +544,8 @@ export default {
             return false;
           }
         });
-
-        this.map.getTarget().style.cursor =
-          features.length > 0 ? "pointer" : "";
+        const style = this.map.getTarget().style;
+        style && style.cursor == features.length > 0 ? "pointer" : "";
       });
     },
 
@@ -703,7 +729,7 @@ export default {
       });
 
       if (notVisibleLayers.length > 0) {
-        this.layerSnackbar = {
+        this.visibilityLayerSnackbar = {
           state: true,
           message: `${this.$t(
             `map.snackbarMessages.zoomInToShowFeatures`
@@ -711,7 +737,7 @@ export default {
           timeout: 80000
         };
       } else {
-        this.layerSnackbar = {
+        this.visibilityLayerSnackbar = {
           state: false,
           message: ``,
           timeout: 0
@@ -724,6 +750,27 @@ export default {
         const feature = this.currentInfoFeature;
 
         let type = feature.get("osm_type");
+        if (!type && feature.get("orgin_geometry")) {
+          const originGeometry =
+            feature.getProperties()["orgin_geometry"] ||
+            feature
+              .getGeometry()
+              .getType()
+              .toLowerCase();
+          switch (originGeometry) {
+            case "polygon":
+            case "multipolygon":
+            case "linestring":
+              type = "way";
+              break;
+            case "point":
+              type = "node";
+              break;
+            default:
+              type = null;
+              break;
+          }
+        }
         link =
           `https://www.openstreetmap.org/edit?editor=id&` +
           `${type}` +
@@ -741,7 +788,6 @@ export default {
           return this.$t(`map.layerName.${layer.get("layerName")}`);
         } else if (
           this.osmMode === true &&
-          this.osmMappingLayers[layer.get("layerName")] &&
           this.$te(`map.osmMode.layers.${layer.get("layerName")}.layerName`)
         ) {
           const path = `map.osmMode.layers.${layer.get("layerName")}`;
@@ -773,14 +819,15 @@ export default {
       helpTooltip: "helpTooltip",
       currentMessage: "currentMessage",
       osmMode: "osmMode",
-      osmMappingLayers: "osmMappingLayers",
-      layers: "layers"
+      layers: "layers",
+      busyLayers: "busyLayers"
     }),
     ...mapGetters("app", {
       activeColor: "activeColor"
     }),
     ...mapGetters("isochrones", {
-      isochroneLayer: "isochroneLayer"
+      isochroneLayer: "isochroneLayer",
+      options: "options"
     }),
     ...mapGetters("user", {
       userId: "userId"
@@ -842,6 +889,24 @@ export default {
           }
         });
       }, 500);
+    },
+    busyLayers(layers) {
+      if (
+        layers.length > 0 &&
+        ["scenario", "comparison"].includes(
+          this.options.calculationModes.active
+        )
+      ) {
+        this.busyLayerSnackbar = {
+          state: true,
+          timeout: 100000,
+          message: this.$t("map.snackbarMessages.heatmapIsBusy")
+        };
+      } else {
+        this.busyLayerSnackbar = {
+          state: false
+        };
+      }
     }
   }
 };

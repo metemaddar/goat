@@ -50,7 +50,7 @@
                     <v-icon dark>add</v-icon>
                   </v-btn>
                 </template>
-                <span>Create new scenario</span></v-tooltip
+                <span>{{ $t("appBar.edit.createScenario") }}</span></v-tooltip
               >
             </v-col>
             <v-col v-if="activeScenario" class="text-center">
@@ -71,7 +71,7 @@
                     <v-icon dark>edit</v-icon>
                   </v-btn>
                 </template>
-                <span>Edit Scenario Name</span></v-tooltip
+                <span>{{ $t("appBar.edit.editScenarioName") }}</span></v-tooltip
               >
             </v-col>
           </v-row>
@@ -87,7 +87,7 @@
                 @click="showScenarioDialog = true"
               >
                 <v-icon left dark>add</v-icon>
-                Create Scenario
+                {{ $t("appBar.edit.createScenario") }}
               </v-btn>
             </v-col></v-row
           >
@@ -99,7 +99,7 @@
             <v-icon style="color:#30c2ff;" small class="mr-2"
               >fas fa-layer-group</v-icon
             >
-            <h3>Select Layer</h3>
+            <h3>{{ $t("appBar.edit.selectLayer") }}</h3>
           </v-subheader>
           <v-select
             class="mt-4"
@@ -109,7 +109,7 @@
             return-object
             :loading="loadingLayerInfo"
             solo
-            :label="$t('appBar.edit.selectLayer')"
+            :label="$t('appBar.edit.layerToEdit')"
           >
             <template slot="selection" slot-scope="{ item }">
               {{ translate("layerName", item.get("name")) }}
@@ -357,7 +357,7 @@
               class="mr-2"
               >fas fa-database</v-icon
             >
-            <h3>Scenario Import/Export</h3>
+            <h3>{{ $t("appBar.edit.scenarioImportExport") }}</h3>
           </v-subheader>
           <div class="ml-2" v-if="dataManageElVisible">
             <v-flex
@@ -457,7 +457,7 @@
               class="mr-2"
               >far fa-list-alt</v-icon
             >
-            <h3>Scenario Features</h3>
+            <h3>{{ $t("appBar.edit.scenarioFeatures") }}</h3>
           </v-subheader>
           <div class="ml-2" v-if="dataTableElVisible">
             <v-expand-transition>
@@ -566,7 +566,8 @@
           class="white--text"
           v-if="!isUploadBusy"
           :disabled="
-            isDeleteAllBusy ||
+            this.busyLayers.length > 0 ||
+              isDeleteAllBusy ||
               (isUploadBtnEnabled === false &&
                 selectedLayer &&
                 selectedLayer.get('name') === 'buildings' &&
@@ -1827,6 +1828,9 @@ export default {
       //If there are file input feature commit those in db as well.
       this.isUploadBusy = true;
       this.olEditCtrl.uploadFeatures(state => {
+        if (state === "success") {
+          EventBus.$emit("updateAllLayers");
+        }
         this.isUploadBusy = false;
         this.toggleSnackbar({
           type: state, //success or error
@@ -1942,7 +1946,7 @@ export default {
             //1- Call api to delete all features.
             this.isDeleteAllBusy = true;
             http
-              .post("api/deleteAllScenarioData", {
+              .post("/api/map/deleteAllScenarioData", {
                 user_id: userId,
                 layer_names: layerNames,
                 scenario_id: this.activeScenario
@@ -2275,7 +2279,8 @@ export default {
       activeColor: "activeColor"
     }),
     ...mapGetters("map", {
-      contextmenu: "contextmenu"
+      contextmenu: "contextmenu",
+      layers: "layers"
     }),
     ...mapFields("isochrones", {
       scenarioDataTable: "scenarioDataTable",
@@ -2283,7 +2288,8 @@ export default {
       activeScenario: "activeScenario"
     }),
     ...mapFields("map", {
-      selectedLayer: "selectedEditLayer"
+      selectedLayer: "selectedEditLayer",
+      busyLayers: "busyLayers"
     })
   },
   created() {
