@@ -94,7 +94,7 @@ jobs:
           kubectl apply -f k8s/goat-custom-pg-config.yaml
       - name: Create docker secret if not exists
         run: |
-          sops -d k8s/docker-registry-secret.sops.yaml > k8s/docker-registry-secret.yaml
+          sops -d k8s/docker-registry-secret.sops.yaml > k8s/docker-registry-secret.tpl.yaml
           make build-k8s -e NAMESPACE=${GITHUB_REF##refs/heads/}
           kubectl apply -f k8s/docker-registry-secret.yaml
       - name: Deploy cluster
