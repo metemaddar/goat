@@ -125,5 +125,5 @@ jobs:
           export PGO_NAMESPACE=pgo
           export PATH=$PATH:${HOME?}/.pgo/pgo
           pgo create user -n crunchy goat \
-            --username $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_USER}} | base64 -D) \
-            --password $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_PASSWORD}} | base64 -D) > /dev/null
+            --username $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_USER}} | base64 -d) \
+            --password $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_PASSWORD}} | base64 -d) > /dev/null
