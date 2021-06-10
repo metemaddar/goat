@@ -24,6 +24,8 @@ spec:
       labels:
         app: goat-api
     spec:
+      imagePullSecrets:
+      - name: dockerhub-creds
       containers:
       - image: ${DOCKER_IMAGE}
         imagePullPolicy: IfNotPresent
