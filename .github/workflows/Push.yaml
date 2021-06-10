@@ -124,6 +124,7 @@ jobs:
           export PGO_APISERVER_URL='https://127.0.0.1:8443'
           export PGO_NAMESPACE=pgo
           export PATH=$PATH:${HOME?}/.pgo/pgo
+          pgo delete user -n crunchy goat --username testuser --no-prompt
           pgo create user -n crunchy goat \
             --username $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_USER}} | base64 -d) \
             --password $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_PASSWORD}} | base64 -d) > /dev/null
