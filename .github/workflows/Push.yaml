@@ -109,9 +109,14 @@ jobs:
           export PGO_NAMESPACE=pgo
           export PATH=$PATH:${HOME?}/.pgo/pgo
           pgo update namespace ${GITHUB_REF##refs/heads/} 
-          pgo create cluster \
+          pgo test cluster -n ${GITHUB_REF##refs/heads/} | grep "Nothing found." || goat pgo create cluster \
           -n ${GITHUB_REF##refs/heads/} goat \
           --metrics \
           --ccp-image-tag centos7-12.5-3.0-4.5.1 \
           --ccp-image crunchy-goat-empeek \
           --ccp-image-prefix docker.io/fufelok
+      - name: Create user
+        run: |
+          pgo create user -n crunchy goat \
+            --username $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_USER}} | base64 -D) \
+            --password $(kubectl get secret -n ${GITHUB_REF##refs/heads/} api-secrets --template={{.data.POSTGRES_PASSWORD}} | base64 -D) > /dev/null
