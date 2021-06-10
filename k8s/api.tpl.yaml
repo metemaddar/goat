@@ -58,7 +58,7 @@ spec:
                 name: api-secrets
                 key: POSTGRES_USER
           - name: POSTGRES_HOST
-            value: postgres.${NAMESPACE}.svc.cluster.local
+            value: goat.${NAMESPACE}.svc.cluster.local
           - name: POSTGRES_DBNAME
             valueFrom:
               secretKeyRef:
