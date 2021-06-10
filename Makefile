@@ -1,4 +1,4 @@
-ifneq (,)
+ifneq (,) 
 This makefile requires GNU Make.
 endif
 
