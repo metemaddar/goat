@@ -59,9 +59,12 @@ setup-kube-config:
 	sops -d k8s/config-encrypted > k8s/config
 	mkdir -p ${HOME}/.kube/
 	cp k8s/config ${HOME}/.kube/config
-	$(KCTL) config set "clusters.goat.server" "${KUBE_CLUSTER_SERVER}"
-	$(KCTL) config set "clusters.goat.certificate-authority-data" "${KUBE_CLUSTER_CERTIFICATE}"
-	$(KCTL) config set "users.goat-admin.token" "${KUBE_CLIENT_TOKEN}"
+#	KUBE_CLUSTER_SERVER=$(shell cat k8s/config | sed -n -e 's/^.*server: //p')
+#	KUBE_CLUSTER_CERTIFICATE=$(shell cat k8s/config | sed -n -e 's/^.*certificate-authority-data: //p')
+#	KUBE_CLIENT_TOKEN=$(shell cat k8s/config | sed -n -e 's/^.*token: //p')
+#	$(KCTL) config set "clusters.goat.server" "${KUBE_CLUSTER_SERVER}"
+#	$(KCTL) config set "clusters.goat.certificate-authority-data" "${KUBE_CLUSTER_CERTIFICATE}"
+#	$(KCTL) config set "users.goat-admin.token" "${KUBE_CLIENT_TOKEN}"
 
 # target: make setup-nginx
 .PHONY: setup-nginx
@@ -122,8 +125,13 @@ deploy-postgres-server: setup-kube-config build-k8s
 # target: make deploy -e COMPONENT=api|client|geoserver|print|mapproxy
 .PHONY: deploy
 deploy: setup-kube-config build-k8s
-	if [[ "$(COMPONENT)" == "api" || "$(COMPONENT)" == "cron" ]]; then \
+#	if [[ "$(COMPONENT)" == "api" || "$(COMPONENT)" == "cron" ]]; then \
 	   $(KCTL) config use-context goat && $(KCTL) apply -f k8s/$(COMPONENT)-secrets.yaml && $(KCTL) apply -f k8s/$(COMPONENT).yaml; \
 	else \
 	   $(KCTL) config use-context goat && $(KCTL) apply -f k8s/$(COMPONENT).yaml; \
+	fi
+	if [[ "$(COMPONENT)" == "api" || "$(COMPONENT)" == "cron" ]]; then \
+		$(KCTL) apply -f k8s/$(COMPONENT)-secrets.yaml && $(KCTL) apply -f k8s/$(COMPONENT).yaml; \
+	else \
+		$(KCTL) apply -f k8s/$(COMPONENT).yaml; \
 	fi
