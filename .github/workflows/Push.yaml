@@ -25,16 +25,16 @@ jobs:
           sudo dpkg -i sops_3.7.1_amd64.deb
           sops -v 
       - name: Release changed client
-        if: contains(steps.get_file_changes.outputs.files, 'app/client') || contains(github.event.head_commit.message, 'trigger build')
+        #if: contains(steps.get_file_changes.outputs.files, 'app/client') || contains(github.event.head_commit.message, 'trigger build')
         run: make release-docker-image -e COMPONENT=client
       - name: Release changed api
-        if: contains(steps.get_file_changes.outputs.files, 'app/api') || contains(github.event.head_commit.message, 'trigger build')
+        #if: contains(steps.get_file_changes.outputs.files, 'app/api') || contains(github.event.head_commit.message, 'trigger build')
         run: make release-docker-image -e COMPONENT=api
       - name: Release changed cron
-        if: contains(steps.get_file_changes.outputs.files, 'app/cron') || contains(github.event.head_commit.message, 'trigger build')
+        #if: contains(steps.get_file_changes.outputs.files, 'app/cron') || contains(github.event.head_commit.message, 'trigger build')
         run: make release-docker-image-app-context -e COMPONENT=cron 
       - name: Release changed database
-        if: contains(steps.get_file_changes.outputs.files, 'app/database') || contains(github.event.head_commit.message, 'trigger build')
+        #if: contains(steps.get_file_changes.outputs.files, 'app/database') || contains(github.event.head_commit.message, 'trigger build')
         run: | 
           docker build -f app/database/Dockerfile --pull -t goatcommunity/crunchy-goat-empeek app
           docker push goatcommunity/crunchy-goat-empeek
