@@ -109,7 +109,7 @@ jobs:
           export PGO_NAMESPACE=pgo
           export PATH=$PATH:${HOME?}/.pgo/pgo
           pgo update namespace ${GITHUB_REF##refs/heads/} 
-          pgo test cluster -n ${GITHUB_REF##refs/heads/} | grep "Nothing found." || pgo create cluster \
+          pgo test cluster -n ${GITHUB_REF##refs/heads/} goat | grep "Nothing found." || pgo create cluster \
           -n ${GITHUB_REF##refs/heads/} goat \
           --custom-config goat-custom-pg-config \
           --metrics \
