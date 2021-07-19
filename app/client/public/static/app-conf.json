@@ -975,6 +975,20 @@
           "source": "LastenVelo Freiburg e.V.",
           "date": "16.03.2021"
         }
+      },
+      {
+        "name": "Bikesharing",
+        "attributes": {
+          "source": "nextbike GmbH",
+          "date": "14.07.2021"
+        }
+      },
+      {
+        "name": "Normalized Difference Vegetation Index (Sentinel 2)",
+        "attributes": {
+          "source": "Sentinel-Hub",
+          "date": "09-2020"
+        }
       }
     ],
     "controls": [
