@@ -82,9 +82,14 @@ export default {
       return notActiveLanguages;
     },
     activeLanguage() {
-      const activeLanguage = this.languages.filter(value => {
+      let activeLanguage = this.languages.filter(value => {
         return value.language === this.$i18n.locale;
       });
+      if (activeLanguage.length === 0) {
+        activeLanguage = this.languages.filter(
+          value => value.language === "en"
+        );
+      }
       return activeLanguage;
     },
     show: {
