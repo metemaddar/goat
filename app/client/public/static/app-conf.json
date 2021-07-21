@@ -888,6 +888,13 @@
           "source": "Statistische Ämter des Bundes und der Länder",
           "date": "2011"
         }
+      },
+      {
+        "name": "Schulen",
+        "attributes": {
+          "source": "JedeSchule - Open Knowledge Foundation Deutschland e.V.",
+          "date": "2021"
+        }
       }
     ],
     "controls": [
