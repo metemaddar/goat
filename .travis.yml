@@ -56,7 +56,6 @@ jobs:
         # Sets up kubernetes configuration
         - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
         - make setup-kube-config
-        - make setup-nginx
         # Here we can overwrite the env variables for some edge cases
         - if [[ $TRAVIS_BRANCH == "master" ]]; then
           export NAMESPACE=goat; export DOMAIN=$NAMESPACE.open-accessibility.org;
