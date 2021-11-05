@@ -61,7 +61,7 @@ spec:
             - configMapRef:
                 name: postgres-config
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql
               name: postgresdata
               subPath: postgres
             - mountPath: /opt/config/db
