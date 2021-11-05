@@ -62,14 +62,11 @@ spec:
                 name: postgres-config
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgredb
+              name: postgresdata
             - mountPath: /opt/config/db
               name: goat-config
-            - mountPath: /opt/data
-              name: postgredb
-              subPath: ${NAMESPACE}
       volumes:
-        - name: postgredb
+        - name: postgresdata
           persistentVolumeClaim:
             claimName: postgres-pv-claim
         - name: goat-config
