@@ -60,6 +60,21 @@
           "size": 0.7
         }
       ]
+    },
+    {
+      "name": "tree",
+      "filter": [
+        "==",
+        "amenity",
+        "tree"
+      ],
+      "symbolizers": [
+        {
+          "kind": "Icon",
+          "image": "static/layer-styles/assets/icons/street_furniture/tree.png",
+          "size": 0.7
+        }
+      ]
     }
   ]
 }

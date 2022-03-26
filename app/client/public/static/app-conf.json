@@ -220,7 +220,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/footpath_width.json"
@@ -238,7 +238,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_lit.json"
@@ -261,28 +261,10 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_lanes.json"
-        }
-      },
-      {
-        "type": "VECTORTILE",
-        "format": "MVT",
-        "name": "ways_parking",
-        "url": "/api/map/layer/ways_parking/{z}/{x}/{y}",
-        "group": "streetlevelqualityLayers",
-        "opacity": 1,
-        "queryable": true,
-        "visible": false,
-        "canEdit": false,
-        "displayInLayerList": true,
-        "zIndex": 1,
-        "maxResolution": 30,
-        "style": {
-          "format": "geostyler",
-          "url": "./static/layer-styles/styles/ways_parking.json"
         }
       },
       {
@@ -297,7 +279,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_category.json"
@@ -315,7 +297,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_category_aggregated.json"
@@ -333,7 +315,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_speed.json"
@@ -351,7 +333,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_surface.json"
@@ -369,7 +351,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_smoothness.json"
@@ -387,7 +369,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_segregated.json"
@@ -406,7 +388,7 @@
         "displayInLayerList": true,
         "docUrl": "https://plan4better.de/docs/walkability_index/",
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 7,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/footpath_visualization.json"
@@ -424,7 +406,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_liveliness.json"
@@ -442,7 +424,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_urban_equipment.json"
@@ -460,7 +442,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_traffic_protection.json"
@@ -478,7 +460,7 @@
         "canEdit": false,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 30,
+        "maxResolution": 10,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_sidewalk_quality.json"
@@ -518,28 +500,6 @@
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_green_blue_index.json"
-        }
-      },
-      {
-        "type": "VECTORTILE",
-        "format": "MVT",
-        "name": "trees",
-        "url": "/api/map/layer/trees/{z}/{x}/{y}",
-        "group": "streetlevelqualityLayers",
-        "opacity": 1,
-        "visible": false,
-        "canEdit": false,
-        "queryable": true,
-        "displayInLayerList": true,
-        "zIndex": 2,
-        "maxResolution": 30,
-        "style": {
-          "format": "geostyler",
-          "url": "./static/layer-styles/styles/trees.json"
-        },
-        "attributes": {
-          "source": "openStreetMap",
-          "date": "17-06-2021"
         }
       },
       {
@@ -591,8 +551,8 @@
       {
         "type": "VECTORTILE",
         "format": "MVT",
-        "name": "street_furniture_bicycles",
-        "url": "/api/map/layer/street_furniture_bicycles/{z}/{x}/{y}",
+        "name": "trees",
+        "url": "/api/map/layer/trees/{z}/{x}/{y}",
         "group": "streetlevelqualityLayers",
         "opacity": 1,
         "visible": false,
@@ -603,19 +563,18 @@
         "maxResolution": 30,
         "style": {
           "format": "geostyler",
-          "url": "./static/layer-styles/styles/street_furniture_bicycles.json"
+          "url": "./static/layer-styles/styles/trees.json"
         },
         "attributes": {
           "source": "openStreetMap",
-          "source": "Mapillary",
           "date": "01-06-2021"
         }
       },
       {
         "type": "VECTORTILE",
         "format": "MVT",
-        "name": "primary_school_streams",
-        "url": "/api/map/layer/primary_school_streams/{z}/{x}/{y}",
+        "name": "street_furniture_bicycles",
+        "url": "/api/map/layer/street_furniture_bicycles/{z}/{x}/{y}",
         "group": "streetlevelqualityLayers",
         "opacity": 1,
         "visible": false,
@@ -623,9 +582,15 @@
         "queryable": true,
         "displayInLayerList": true,
         "zIndex": 2,
+        "maxResolution": 7,
         "style": {
           "format": "geostyler",
-          "url": "./static/layer-styles/styles/primary_school_streams.json"
+          "url": "./static/layer-styles/styles/street_furniture_bicycles.json"
+        },
+        "attributes": {
+          "source": "openStreetMap",
+          "source": "Mapillary",
+          "date": "01-06-2021"
         }
       },
       {
@@ -640,7 +605,7 @@
         "queryable": true,
         "displayInLayerList": true,
         "zIndex": 1,
-        "maxResolution": 10,
+        "maxResolution": 7,
         "style": {
           "format": "geostyler",
           "url": "./static/layer-styles/styles/ways_wheelchair.json"
