@@ -31,10 +31,11 @@ class Isochrone(Dijkstra):
         points is like: {234234: [23.3423424,22.23423423]}
         """
         self.points = np.array(points, dtype=np.double)
+        self.points = self.points.transpose()
         self.costs = np.array(costs, dtype=np.double)
 
     def build_grid_interpolate(self):
-        points = self.points.transpose()
+        points = self.points
         min_x = math.floor(points[0].min())
         min_y = math.floor(points[1].min())
         max_x = math.ceil(points[0].max())
