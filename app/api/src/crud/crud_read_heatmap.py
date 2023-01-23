@@ -373,7 +373,7 @@ class CRUDReadHeatmap(CRUDBaseHeatmap):
 
         # Get bulk ids
         bulk_ids = await self.read_h3_grids_study_areas(
-            resolution=heatmap_settings.resolution,
+            resolution=6,
             buffer_size=buffer_size,
             study_area_ids=heatmap_settings.study_area_ids,
         )
